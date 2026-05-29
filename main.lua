@@ -10,20 +10,29 @@ function _init()
   local bump=require("lib.bump")
   World=bump.newWorld(24)
   Map=require("map")
-  Test=Map:init("maps.test")
+
   Player={x=0,y=0,vx=0,vy=0}
   World:add(Player,Player.x,Player.y,12,12)
+
+  Test=Map:init("maps.test")
+  Test:bumpInit(World)
+  
+  --local temp={}
+  --World:add(temp,0,50,64,64)
+  
 
   Gravity=400
 end
 
 function _update(dt)
   Player.vy+=Gravity*dt
-  Player.y+=Player.vy*dt
+  --Player.y+=Player.vy*dt
+  local ax,ay,col,len=World:move(Player,Player.x,Player.y+Player.vy*dt)
+  Player.x,Player.y=ax,ay
   --if Test:get("Tile Layer 1",math.floor(Player.x/12),math.floor((Player.y+1)/12))==2 then
     --Player.vy=0
   --end
-  print(Test:get("Tile Layer 1",math.floor(Player.x/12),math.floor((Player.y+1)/12)))
+  --print(Test:get("Tile Layer 1",math.floor(Player.x/12),math.floor((Player.y+1)/12)))
 end
 
 function _draw(dt)
