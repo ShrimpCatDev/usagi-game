@@ -1,5 +1,5 @@
 function _config()
-  return { name = "Game", game_id = "com.usagiengine.YOURGAMENAME", sprite_size=12 }
+  return { name = "Game", game_id = "com.usagiengine.YOURGAMENAME", sprite_size=8,game_width=144,game_height=128 }
 end
 
 function _init()
@@ -12,10 +12,11 @@ function _init()
   Map=require("map")
 
   Player={x=0,y=0,vx=0,vy=0}
-  World:add(Player,Player.x,Player.y,12,12)
+  World:add(Player,Player.x,Player.y,8,8)
 
   Test=Map:init("maps.test")
   Test:bumpInit(World)
+  time=0
   
   --local temp={}
   --World:add(temp,0,50,64,64)
@@ -25,6 +26,7 @@ function _init()
 end
 
 function _update(dt)
+  time=time+dt
   Player.vy+=Gravity*dt
   --Player.y+=Player.vy*dt
   local ax,ay,col,len=World:move(Player,Player.x,Player.y+Player.vy*dt)
@@ -36,8 +38,8 @@ function _update(dt)
 end
 
 function _draw(dt)
-  gfx.clear(gfx.COLOR_BLUE)
-  gfx.text("Hello, Usagi!", 10, 10, gfx.COLOR_WHITE)
-  Test:draw()
-  gfx.spr(1,Player.x,Player.y)
+  gfx.clear(7)
+  local dx,dy=math.floor(math.cos(time)*16),math.floor(math.sin(time)*16)
+  Test:draw(dx,dy)
+  gfx.spr(1,Player.x+dx,Player.y+dy)
 end
