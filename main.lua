@@ -30,13 +30,25 @@ function _update(dt)
   Player.vy+=Gravity*dt
 
   --Player.y+=Player.vy*dt
-  local ax,ay,col,len=World:move(Player,Player.x,Player.y+Player.vy*dt)
+  Player.vx=0
+  if input.held(input.RIGHT) then
+      Player.vx=120
+  end
+  if input.held(input.LEFT) then
+      Player.vx=-120
+  end
+  local ax,ay,col,len=World:move(Player,Player.x+Player.vx*dt,Player.y+Player.vy*dt)
   Player.x,Player.y=ax,ay
   for i=1,len do
     local c=col[i]
-    if col[i].onormal.y==-1 then
+    if col[i].normal.y==-1 then
       Player.vy=0
-      print("on ground!")
+      if input.pressed(input.BTN1) then
+        Player.vy=-180
+      end
+    end
+    if col[i].normal.y==1 then
+      Player.vy=0
     end
   end
   --if Test:get("Tile Layer 1",math.floor(Player.x/12),math.floor((Player.y+1)/12))==2 then
@@ -47,7 +59,7 @@ end
 
 function _draw(dt)
   gfx.clear(7)
-  local dx,dy=math.floor(math.cos(time)*16),math.floor(math.sin(time)*16)
+  local dx,dy=-Player.x+usagi.GAME_W/2-4,0--math.floor(math.cos(time)*16),math.floor(math.sin(time)*16)
   Test:draw(dx,dy)
   gfx.spr(1,Player.x+dx,Player.y+dy)
 end

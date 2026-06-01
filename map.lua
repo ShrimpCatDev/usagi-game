@@ -71,7 +71,7 @@ function map:init(path,sw,sh)
                     for x = 0,layer.width-1 do
                         for b,tileset in ipairs(mself.tilesets) do
                             for c,tile in ipairs(tileset.tiles) do
-                                if mself:get(layer.name,x,y)==tile.id+1 then
+                                if mself:get(layer.name,x,y)==tile.id+1 and tile.properties.collidable then
                                     table.insert(mself.tileCols,{id=tile.id,properties=tile.properties})
                                     world:add(mself.tileCols[#mself.tileCols],x*mself.tilewidth,y*mself.tileheight,mself.tilewidth,mself.tileheight)
                                 end
@@ -81,14 +81,14 @@ function map:init(path,sw,sh)
                     end
                 end
             elseif layer.type=="objectgroup" then
-                    for j, object in ipairs(layer.objects) do
-                        local x,y=object.x,object.y
-                        if object.shape=="rectangle" and object.properties["collidable"] then
-                            table.insert(mself.tileCols,{id=object.id,properties=object.properties})
-                            world:add(mself.tileCols[#mself.tileCols],x,y,object.width,object.height)
-                        end
+                for j, object in ipairs(layer.objects) do
+                    local x,y=object.x,object.y
+                    if object.shape=="rectangle" and object.properties["collidable"] then
+                        table.insert(mself.tileCols,{id=object.id,properties=object.properties})
+                        world:add(mself.tileCols[#mself.tileCols],x,y-object.height,object.width,object.height)
                     end
                 end
+            end
         end
     end
     
