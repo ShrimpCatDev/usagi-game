@@ -28,9 +28,17 @@ end
 function _update(dt)
   time=time+dt
   Player.vy+=Gravity*dt
+
   --Player.y+=Player.vy*dt
   local ax,ay,col,len=World:move(Player,Player.x,Player.y+Player.vy*dt)
   Player.x,Player.y=ax,ay
+  for i=1,len do
+    local c=col[i]
+    if col[i].onormal.y==-1 then
+      Player.vy=0
+      print("on ground!")
+    end
+  end
   --if Test:get("Tile Layer 1",math.floor(Player.x/12),math.floor((Player.y+1)/12))==2 then
     --Player.vy=0
   --end

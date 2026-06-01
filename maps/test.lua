@@ -10,7 +10,7 @@ return {
   tilewidth = 8,
   tileheight = 8,
   nextlayerid = 6,
-  nextobjectid = 8,
+  nextobjectid = 21,
   properties = {},
   tilesets = {
     {
@@ -102,6 +102,73 @@ return {
             ["color"] = 30,
             ["fill"] = true
           }
+        },
+        {
+          id = 13,
+          name = "",
+          type = "",
+          shape = "ellipse",
+          x = 11.375,
+          y = 16.6563,
+          width = 18,
+          height = 18,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["fill"] = true
+          }
+        },
+        {
+          id = 14,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 100.125,
+          y = 13.9063,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 15,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 38.875,
+          y = 38.1563,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 16,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 92.875,
+          y = 47.1563,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 17,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 131.375,
+          y = 29.6563,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -181,7 +248,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 2,
-      name = "Object Layer 1",
+      name = "test",
       class = "",
       visible = true,
       opacity = 1,
@@ -192,47 +259,47 @@ return {
       properties = {},
       objects = {
         {
-          id = 1,
+          id = 18,
           name = "",
           type = "",
           shape = "rectangle",
-          x = 15.6667,
-          y = 13,
-          width = 33,
-          height = 22,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["color"] = 10,
-            ["fill"] = true
-          }
-        },
-        {
-          id = 2,
-          name = "",
-          type = "",
-          shape = "point",
-          x = 60,
-          y = 19,
-          width = 0,
-          height = 0,
-          rotation = 0,
+          x = 104.258,
+          y = 32.5578,
+          width = 35.8275,
+          height = 27,
+          rotation = 329.774,
+          gid = 65,
           visible = true,
           properties = {}
         },
         {
-          id = 3,
+          id = 19,
           name = "",
           type = "",
-          shape = "ellipse",
-          x = 80,
-          y = 18.6667,
-          width = 32.6667,
-          height = 22.6667,
+          shape = "rectangle",
+          x = 9.01189,
+          y = 48.515,
+          width = 48.6437,
+          height = 15.3404,
+          rotation = 19.4359,
+          gid = 33,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 20,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 91.5095,
+          y = 83.7244,
+          width = 31.75,
+          height = 10.25,
           rotation = 0,
+          gid = 34,
           visible = true,
           properties = {
-            ["fill"] = true
+            ["collidable"] = true
           }
         }
       }
