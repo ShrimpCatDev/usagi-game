@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="18" height="16" tilewidth="8" tileheight="8" infinite="0" nextlayerid="7" nextobjectid="21">
+ <editorsettings>
+  <export target="test.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" name="sprites" tilewidth="8" tileheight="8" tilecount="1024" columns="32">
+  <image source="../sprites.png" width="256" height="256"/>
+  <tile id="1">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <animation>
+    <frame tileid="5" duration="150"/>
+    <frame tileid="6" duration="150"/>
+    <frame tileid="7" duration="150"/>
+    <frame tileid="6" duration="150"/>
+   </animation>
+  </tile>
+  <tile id="96">
+   <animation>
+    <frame tileid="96" duration="150"/>
+    <frame tileid="97" duration="150"/>
+    <frame tileid="98" duration="150"/>
+    <frame tileid="99" duration="150"/>
+   </animation>
+  </tile>
+  <tile id="128">
+   <animation>
+    <frame tileid="128" duration="150"/>
+    <frame tileid="129" duration="150"/>
+    <frame tileid="130" duration="150"/>
+    <frame tileid="131" duration="150"/>
+   </animation>
+  </tile>
+ </tileset>
+ <objectgroup id="5" name="bg" parallaxx="0" parallaxy="0.25">
+  <object id="5" x="0" y="60" width="144" height="96">
+   <properties>
+    <property name="color" type="int" value="30"/>
+    <property name="fill" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="7" x="0.5" y="56.8333" width="144" height="1.16667">
+   <properties>
+    <property name="color" type="int" value="30"/>
+    <property name="fill" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="13" x="45.0417" y="3.65625" width="18" height="18">
+   <properties>
+    <property name="color" type="int" value="9"/>
+    <property name="fill" type="bool" value="true"/>
+   </properties>
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <layer id="6" name="stars" width="18" height="16" parallaxx="0" parallaxy="0">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="3" name="hills" width="18" height="16" offsetx="0" offsety="-31" parallaxx="0.5" parallaxy="0.5">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,4,5,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,36,37,0,0,0,
+0,0,0,0,0,0,0,0,0,0,4,36,5,36,36,0,0,0,
+4,36,36,5,0,0,0,0,0,0,36,37,36,36,36,4,5,0,
+36,36,36,37,0,0,0,0,0,0,36,36,36,36,36,36,36,0,
+36,37,36,36,0,0,0,0,0,0,36,36,36,36,36,36,36,0,
+36,36,36,36,4,5,0,0,0,0,36,36,36,37,36,36,36,0,
+37,36,36,36,37,36,0,0,0,0,36,36,36,36,36,36,36,0,
+36,36,36,36,36,37,0,0,0,0,36,36,36,36,36,36,37,0,
+68,68,68,68,68,68,0,0,0,0,68,68,68,68,68,68,68,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="1" name="terrain" width="18" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,129,2,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,97,2,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,97,2,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,97,2,2,
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,97,3,3,
+2,2,129,2,2,2,2,2,2,2,2,2,2,2,2,97,2,2,
+2,2,97,2,2,2,2,2,2,2,2,2,2,2,2,97,2,2,
+2,2,97,2,2,2,2,2,2,2,2,2,2,2,2,97,2,2
+</data>
+ </layer>
+ <objectgroup id="2" name="test">
+  <object id="18" gid="65" x="104.258" y="32.5578" width="35.8275" height="27" rotation="329.774"/>
+  <object id="19" gid="33" x="9.01189" y="48.515" width="48.6437" height="15.3404" rotation="19.4359"/>
+  <object id="20" gid="34" x="80" y="80" width="31.75" height="10.25">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
