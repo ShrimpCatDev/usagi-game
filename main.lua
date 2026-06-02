@@ -26,6 +26,7 @@ function _init()
 end
 
 function _update(dt)
+  
   time=time+dt
   Player.vy+=Gravity*dt
 
@@ -51,6 +52,7 @@ function _update(dt)
       Player.vy=0
     end
   end
+  Test:update(dt)
   --if Test:get("Tile Layer 1",math.floor(Player.x/12),math.floor((Player.y+1)/12))==2 then
     --Player.vy=0
   --end

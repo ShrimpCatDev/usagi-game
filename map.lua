@@ -2,6 +2,15 @@ local map={}
 
 function map:init(path,sw,sh)
     local m=require(path)
+    for b,tileset in ipairs(m.tilesets) do
+        for c,tile in ipairs(tileset.tiles) do
+            if tile.animation then
+                print(tile.id)
+                tile.time=0
+                tile.frame=1
+            end
+        end
+    end
     m.draw=function(mself,dx,dy)
         local x,y=dx or 0,dy or 0
         for k,layer in ipairs(mself.layers) do
@@ -15,6 +24,17 @@ function map:init(path,sw,sh)
                         for x = 0,layer.width-1 do
                             local tileId = layer.data[index]
                             if tileId ~= 0 then
+                                for b,tileset in ipairs(m.tilesets) do
+                                    for c,tile in ipairs(tileset.tiles) do
+                                        if tile.animation and tile.id==tileId-1 then
+                                            --print(tile.id)
+                                            --print(tileId)
+                                            tileId=tile.animation[tile.frame].tileid+1
+                                            --tileId=1
+                                            --print(tileId)
+                                        end
+                                    end
+                                end
                                 gfx.spr(tileId, x*mself.tilewidth+ox, y*mself.tileheight+oy)
                             end
                             index=index+1
@@ -71,8 +91,8 @@ function map:init(path,sw,sh)
                     for x = 0,layer.width-1 do
                         for b,tileset in ipairs(mself.tilesets) do
                             for c,tile in ipairs(tileset.tiles) do
-                                if mself:get(layer.name,x,y)==tile.id+1 and tile.properties.collidable then
-                                    table.insert(mself.tileCols,{id=tile.id,properties=tile.properties})
+                                if mself:get(layer.name,x,y)==tile.id+1 and tile.properties and tile.properties.collidable then
+                                    table.insert(mself.tileCols,{id=tile.id,properties=tile.properties or {}})
                                     world:add(mself.tileCols[#mself.tileCols],x*mself.tilewidth,y*mself.tileheight,mself.tilewidth,mself.tileheight)
                                 end
                                 index=index+1
@@ -86,6 +106,25 @@ function map:init(path,sw,sh)
                     if object.shape=="rectangle" and object.properties["collidable"] then
                         table.insert(mself.tileCols,{id=object.id,properties=object.properties})
                         world:add(mself.tileCols[#mself.tileCols],x,y-object.height,object.width,object.height)
+                    end
+                end
+            end
+        end
+    end
+
+    m.update=function(mself,dt)
+        for b,tileset in ipairs(m.tilesets) do
+            for c,tile in ipairs(tileset.tiles) do
+                if tile.animation and tile.time then
+                    tile.time=tile.time+dt*1000
+                    print(tile.animation[tile.frame].duration)
+                    if tile.time>=tile.animation[tile.frame].duration then
+                        print("tick")
+                        tile.frame=tile.frame+1
+                        tile.time=0
+                        if tile.frame>#tile.animation then
+                            tile.frame=1
+                        end
                     end
                 end
             end
