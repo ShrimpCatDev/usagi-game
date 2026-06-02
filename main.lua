@@ -13,8 +13,10 @@ function _init()
 
   Player={x=0,y=0,vx=0,vy=0}
   World:add(Player,Player.x,Player.y,8,8)
+  
 
   Test=Map:init("maps.test")
+  Test:set("terrain",0,0,1)
   Test:bumpInit(World)
   time=0
   
@@ -25,8 +27,7 @@ function _init()
   Gravity=400
 end
 
-function _update(dt)
-  
+function _update(dt)  
   time=time+dt
   Player.vy+=Gravity*dt
 
@@ -63,5 +64,7 @@ function _draw(dt)
   gfx.clear(7)
   local dx,dy=-Player.x+usagi.GAME_W/2-4,0--math.floor(math.cos(time)*16),math.floor(math.sin(time)*16)
   Test:draw(dx,dy)
+  
   gfx.spr(1,Player.x+dx,Player.y+dy)
+  Test:drawlayer("test",dx,dy)
 end

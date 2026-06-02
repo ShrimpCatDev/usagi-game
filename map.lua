@@ -2,6 +2,7 @@ local map={}
 
 function map:init(path,sw,sh)
     local m=require(path)
+    m.time=0
     for b,tileset in ipairs(m.tilesets) do
         for c,tile in ipairs(tileset.tiles) do
             if tile.animation then
@@ -11,10 +12,10 @@ function map:init(path,sw,sh)
             end
         end
     end
-    m.draw=function(mself,dx,dy)
+    m.drawlayer=function(mself,layername,dx,dy)
         local x,y=dx or 0,dy or 0
         for k,layer in ipairs(mself.layers) do
-            if layer.visible then
+            if layer.visible and layer.name==layername then
                 local ox=math.floor(((dx or 0)+(layer.offsetx))*layer.parallaxx)
                 local oy=math.floor(((dy or 0)+(layer.offsety))*layer.parallaxy)
                 if layer.type=="tilelayer" then
@@ -44,31 +45,40 @@ function map:init(path,sw,sh)
                     for j, object in ipairs(layer.objects) do
                         local x,y=math.floor(object.x),math.floor(object.y)
                         local color=object.properties["color"] or 1
-                        if object.shape=="rectangle" then
-                            if object.gid then
-                                local gx=(object.gid-1)*usagi.SPRITE_SIZE
-                                local gy=((object.gid-1)/(mself.tilesets[1].imagewidth/usagi.SPRITE_SIZE))*usagi.SPRITE_SIZE
-                                gfx.sspr_ex(gx,gy,usagi.SPRITE_SIZE,usagi.SPRITE_SIZE,x+ox,y+oy-object.height,object.width,object.height,false,false,object.rotation,0,1)
-                            else
-                                if object.properties["fill"] then
-                                    gfx.rect_fill(x+ox,y+oy,object.width,object.height,color)
+                        if object.visible then
+                            if object.shape=="rectangle" then
+                                if object.gid then
+                                    local gx=(object.gid-1)*usagi.SPRITE_SIZE
+                                    local gy=math.floor(((object.gid-1)/(mself.tilesets[1].imagewidth/usagi.SPRITE_SIZE))*usagi.SPRITE_SIZE)
+                                    local r=math.rad(object.rotation)
+                                    gfx.sspr_ex(gx,gy,usagi.SPRITE_SIZE,usagi.SPRITE_SIZE,x+ox,(y-object.height)+oy,object.width,object.height,false,false,r,0,1)
                                 else
-                                    gfx.rect(x+ox,y+oy,object.width,object.height,color)
+                                    if object.properties["fill"] then
+                                        gfx.rect_fill(x+ox,y+oy,object.width,object.height,color)
+                                    else
+                                        gfx.rect(x+ox,y+oy,object.width,object.height,color)
+                                    end
                                 end
-                            end
-                        elseif object.shape=="point" then
-                            gfx.px(x+ox,y+oy,color)
-                        elseif object.shape=="ellipse" then
-                            local r=object.width/2
-                            if object.properties["fill"] then
-                                gfx.circ_fill(object.x+r+ox,object.y+r+oy,r,color)
-                            else
-                                gfx.circ(object.x+r+ox,object.y+r+oy,r,color)
+                            elseif object.shape=="point" then
+                                gfx.px(x+ox,y+oy,color)
+                            elseif object.shape=="ellipse" then
+                                local r=object.width/2
+                                if object.properties["fill"] then
+                                    gfx.circ_fill(object.x+r+ox,object.y+r+oy,r,color)
+                                else
+                                    gfx.circ(object.x+r+ox,object.y+r+oy,r,color)
+                                end
                             end
                         end
                     end
                 end
             end
+        end
+    end
+    m.draw=function(mself,dx,dy)
+        local x,y=dx or 0,dy or 0
+        for k,layer in ipairs(mself.layers) do
+            m:drawlayer(layer.name,dx,dy)
         end
     end
 
@@ -80,6 +90,16 @@ function map:init(path,sw,sh)
             end
         end
         return nil
+    end
+
+    m.set=function(mself, layername, x, y, tile)
+        for k, layer in ipairs(mself.layers) do
+            if layer.name == layername and layer.type=="tilelayer" then
+                local index = y * layer.width + x + 1
+                layer.data[index]=tile
+                return layer.data[index]
+            end
+        end
     end
 
     m.bumpInit=function(mself,world)
@@ -113,6 +133,7 @@ function map:init(path,sw,sh)
     end
 
     m.update=function(mself,dt)
+        mself.time+=dt
         for b,tileset in ipairs(m.tilesets) do
             for c,tile in ipairs(tileset.tiles) do
                 if tile.animation and tile.time then

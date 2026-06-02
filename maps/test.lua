@@ -9,8 +9,8 @@ return {
   height = 16,
   tilewidth = 8,
   tileheight = 8,
-  nextlayerid = 7,
-  nextobjectid = 21,
+  nextlayerid = 8,
+  nextobjectid = 29,
   properties = {},
   tilesets = {
     {
@@ -284,8 +284,8 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 129, 2, 2,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 97, 2, 2,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 97, 2, 2,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 97, 2, 2,
+        0, 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 97, 2, 2,
+        0, 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 97, 2, 2,
         3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 97, 3, 3,
         2, 2, 129, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 97, 2, 2,
         2, 2, 97, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 97, 2, 2,
@@ -311,8 +311,8 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 104.258,
-          y = 32.5578,
+          x = 97.008,
+          y = 51.0578,
           width = 35.8275,
           height = 27,
           rotation = 329.774,
@@ -349,8 +349,37 @@ return {
           properties = {
             ["collidable"] = true
           }
+        },
+        {
+          id = 28,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 71.25,
+          y = 58.25,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          gid = 69,
+          visible = false,
+          properties = {}
         }
       }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "trees",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {}
     }
   }
 }
