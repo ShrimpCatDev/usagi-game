@@ -9,7 +9,7 @@ return {
   height = 16,
   tilewidth = 8,
   tileheight = 8,
-  nextlayerid = 8,
+  nextlayerid = 9,
   nextobjectid = 29,
   properties = {},
   tilesets = {
@@ -227,6 +227,42 @@ return {
       width = 18,
       height = 16,
       id = 3,
+      name = "hillsbg",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = -31,
+      parallaxx = 0.25,
+      parallaxy = 0.25,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 39, 71, 71, 71, 71, 40, 0, 0,
+        0, 0, 0, 0, 39, 40, 0, 0, 0, 0, 71, 71, 71, 71, 72, 71, 0, 0,
+        0, 0, 0, 0, 71, 71, 0, 0, 0, 0, 71, 71, 71, 71, 71, 71, 0, 0,
+        0, 0, 0, 0, 71, 72, 0, 0, 0, 0, 71, 72, 71, 71, 71, 71, 0, 0,
+        0, 0, 0, 0, 71, 71, 0, 0, 0, 0, 71, 71, 71, 71, 71, 71, 0, 0,
+        0, 0, 0, 0, 72, 71, 0, 0, 0, 0, 71, 71, 71, 71, 71, 71, 0, 0,
+        0, 0, 0, 0, 71, 71, 0, 0, 0, 0, 71, 71, 71, 71, 72, 71, 0, 0,
+        0, 0, 0, 0, 71, 71, 0, 0, 0, 0, 71, 71, 71, 71, 71, 71, 0, 0,
+        0, 0, 0, 0, 71, 71, 0, 0, 0, 0, 71, 71, 71, 71, 71, 71, 0, 0,
+        0, 0, 0, 0, 103, 103, 0, 0, 0, 0, 103, 103, 103, 103, 103, 103, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 18,
+      height = 16,
+      id = 8,
       name = "hills",
       class = "",
       visible = true,
@@ -307,34 +343,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 18,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 97.008,
-          y = 51.0578,
-          width = 35.8275,
-          height = 27,
-          rotation = 329.774,
-          gid = 65,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 19,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 9.01189,
-          y = 48.515,
-          width = 48.6437,
-          height = 15.3404,
-          rotation = 19.4359,
-          gid = 33,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 20,
           name = "",
           type = "",
@@ -349,20 +357,6 @@ return {
           properties = {
             ["collidable"] = true
           }
-        },
-        {
-          id = 28,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 71.25,
-          y = 58.25,
-          width = 8,
-          height = 8,
-          rotation = 0,
-          gid = 69,
-          visible = false,
-          properties = {}
         }
       }
     },
