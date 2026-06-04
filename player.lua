@@ -23,7 +23,8 @@ function player:init()
 end
 
 function player:update(dt)
-    self.vy+=Gravity*dt
+    dtp=math.min(dt, 0.033)
+    self.vy+=Gravity*dtp
     self.anim.current:update(dt)
 
     --self.y+=self.vy*dt
@@ -55,7 +56,7 @@ function player:update(dt)
     end
 
     self.vx+=self.ax
-    local ax,ay,col,len=World:move(self,self.x+self.vx*dt,self.y+self.vy*dt)
+    local ax,ay,col,len=World:move(self,self.x+self.vx*dt,self.y+self.vy*dtp)
     self.x,self.y=ax,ay
     for i=1,len do
         local c=col[i]

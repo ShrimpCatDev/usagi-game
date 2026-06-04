@@ -3,6 +3,7 @@ function _config()
 end
 
 function _init()
+  music.loop("music/song.mp3")
   -- Live reload preserves globals across saved edits but resets locals.
   -- Stash mutable game state in a capitalized global like `State` so it
   -- survives reloads; F5 calls _init again to reset.
@@ -23,6 +24,7 @@ function _init()
   Test:bumpInit(World)
   time=0
   Gravity=400
+  music.loop("song")
 end
 
 function _update(dt)  
