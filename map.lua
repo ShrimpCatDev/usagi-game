@@ -1,13 +1,17 @@
 local map={}
 
-function map:init(path,sw,sh)
+function map:init(path)
     local m=require(path)
     m.time=0
+    m.sw=usagi.GAME_W
+    m.sh=usagi.GAME_H
+    m.animLookup={}
     for b,tileset in ipairs(m.tilesets) do
         for c,tile in ipairs(tileset.tiles) do
             if tile.animation then
                 tile.time=0
                 tile.frame=1
+                m.animLookup[tile.id+1]=tile
             end
         end
     end
@@ -18,26 +22,22 @@ function map:init(path,sw,sh)
                 local ox=math.floor(((dx or 0)+(layer.offsetx))*layer.parallaxx)
                 local oy=math.floor(((dy or 0)+(layer.offsety))*layer.parallaxy)
                 if layer.type=="tilelayer" then
-                    local index=1
+                    local minX = math.max(0, math.floor(-ox / mself.tilewidth))
+                    local maxX = math.min(layer.width - 1, math.ceil((mself.sw - ox) / mself.tilewidth))
+                    local minY = math.max(0, math.floor(-oy / mself.tileheight))
+                    local maxY = math.min(layer.height - 1, math.ceil((mself.sh - oy) / mself.tileheight))
                     
-                    for y = 0,layer.height-1 do
-                        for x = 0,layer.width-1 do
+                    for y = minY,maxY do
+                        for x = minX,maxX do
+                            local index = y * layer.width + x + 1
                             local tileId = layer.data[index]
                             if tileId ~= 0 then
-                                for b,tileset in ipairs(m.tilesets) do
-                                    for c,tile in ipairs(tileset.tiles) do
-                                        if tile.animation and tile.id==tileId-1 then
-                                            --print(tile.id)
-                                            --print(tileId)
-                                            tileId=tile.animation[tile.frame].tileid+1
-                                            --tileId=1
-                                            --print(tileId)
-                                        end
-                                    end
+                                local animTile = m.animLookup[tileId]
+                                if animTile then
+                                    tileId = animTile.animation[animTile.frame].tileid+1
                                 end
                                 gfx.spr(tileId, x*mself.tilewidth+ox, y*mself.tileheight+oy)
                             end
-                            index=index+1
                         end
                     end
                 elseif layer.type=="objectgroup" then
