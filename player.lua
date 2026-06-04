@@ -65,8 +65,15 @@ function player:update(dt)
             self.jumping=false
             self.vy=0
                 if input.pressed(input.BTN1) then
+                    if self.sleeping then
+                        self.sleeptimer=0
+                        self.sleeping=false
+                        self.anim.current=self.anim.idle
+                        self.anim.current:reset()
+                    end
                     self.vy=-168
                     self.jumping=true
+                    
                     --self.anim.current=self.anim.jump
                     --self.anim.current:reset()
                 else
