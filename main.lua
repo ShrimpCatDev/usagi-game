@@ -13,7 +13,7 @@ function _init()
   Map=require("map")
   Anim=require("anim")
 
-  Player={x=0,y=0,vx=0,vy=0,ax=0,sx=120,axSpd=512,fx=480,anim=Anim.new({192,193,194},200,"pingpong")}
+  Player={x=0,y=0,vx=0,vy=0,ax=0,sx=120,axSpd=512,fx=480,anim=Anim.new({193,194,195},100,"loop")}
   World:add(Player,Player.x,Player.y,8,8)
 
   Camera={x=0,y=0,spd=256}
