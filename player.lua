@@ -6,7 +6,7 @@ function player:init()
     self.vx=0
     self.vy=0
     self.ax=0
-    self.sx=120
+    self.sx=100
     self.axSpd=512
     self.fx=480
     self.anim={
@@ -62,7 +62,7 @@ function player:update(dt)
         if col[i].normal.y==-1 then
             self.vy=0
                 if input.pressed(input.BTN1) then
-                    self.vy=-180
+                    self.vy=-168
                     --self.anim.current=self.anim.jump
                     --self.anim.current:reset()
                 else
