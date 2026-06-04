@@ -6,7 +6,6 @@ function map:init(path,sw,sh)
     for b,tileset in ipairs(m.tilesets) do
         for c,tile in ipairs(tileset.tiles) do
             if tile.animation then
-                print(tile.id)
                 tile.time=0
                 tile.frame=1
             end
@@ -138,9 +137,7 @@ function map:init(path,sw,sh)
             for c,tile in ipairs(tileset.tiles) do
                 if tile.animation and tile.time then
                     tile.time=tile.time+dt*1000
-                    print(tile.animation[tile.frame].duration)
                     if tile.time>=tile.animation[tile.frame].duration then
-                        print("tick")
                         tile.frame=tile.frame+1
                         tile.time=0
                         if tile.frame>#tile.animation then

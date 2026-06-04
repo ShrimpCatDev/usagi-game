@@ -11,27 +11,24 @@ function _init()
   local bump=require("lib.bump")
   World=bump.newWorld(24)
   Map=require("map")
+  Anim=require("anim")
 
-  Player={x=0,y=0,vx=0,vy=0,ax=0,sx=120,axSpd=512,fx=480}
+  Player={x=0,y=0,vx=0,vy=0,ax=0,sx=120,axSpd=512,fx=480,anim=Anim.new({192,193,194},200,"pingpong")}
   World:add(Player,Player.x,Player.y,8,8)
-  
+
   Camera={x=0,y=0,spd=256}
 
   Test=Map:init("maps.test")
   --Test:set("terrain",0,0,1)
   Test:bumpInit(World)
   time=0
-  
-  --local temp={}
-  --World:add(temp,0,50,64,64)
-  
-
   Gravity=400
 end
 
 function _update(dt)  
   time=time+dt
   Player.vy+=Gravity*dt
+  Player.anim:update(dt)
 
   --Player.y+=Player.vy*dt
   Player.vx=0
@@ -74,6 +71,7 @@ function _draw(dt)
   local dx,dy=math.floor(-Camera.x),math.floor(-Camera.y)--math.floor(math.cos(time)*16),math.floor(math.sin(time)*16)
   Test:draw(dx,dy)
   
-  gfx.spr(1,Player.x+dx,Player.y+dy)
+  print(Player.anim:get())
+  gfx.spr(Player.anim:get(),Player.x+dx,Player.y+dy)
   Test:drawlayer("deco",dx,dy)
 end
