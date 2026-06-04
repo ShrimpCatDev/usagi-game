@@ -19,11 +19,12 @@ function player:init()
     self.anim.current=self.anim.idle
     self.sleeping=false
     self.sleeptimer=0
+    self.jumping=false
     World:add(self,self.x,self.y,8,8)
 end
 
 function player:update(dt)
-    dtp=math.min(dt, 0.033)
+    local dtp=math.min(dt, 0.033)
     self.vy+=Gravity*dtp
     self.anim.current:update(dt)
 
@@ -61,9 +62,11 @@ function player:update(dt)
     for i=1,len do
         local c=col[i]
         if col[i].normal.y==-1 then
+            self.jumping=false
             self.vy=0
                 if input.pressed(input.BTN1) then
                     self.vy=-168
+                    self.jumping=true
                     --self.anim.current=self.anim.jump
                     --self.anim.current:reset()
                 else
@@ -77,6 +80,10 @@ function player:update(dt)
         if col[i].normal.y==1 then
             self.vy=0
         end
+    end
+
+    if not input.held(input.BTN1) and self.jumping and self.vy<0 then
+        self.vy=util.approach(self.vy,0,512*dtp)
     end
 end
 
