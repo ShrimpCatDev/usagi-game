@@ -29,6 +29,7 @@ function _update(dt)
   time=time+dt
   Test:update(dt)
   Camera.x=util.approach(Camera.x,math.floor((Player.x+4)/usagi.GAME_W)*usagi.GAME_W,Camera.spd*dt)
+  Camera.y=util.approach(Camera.y,math.floor((Player.y+4)/usagi.GAME_H)*usagi.GAME_H,Camera.spd*dt)
   Player:update(dt)
 end
 

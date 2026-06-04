@@ -12,7 +12,8 @@ function player:init()
     self.anim={
         run=Anim.new({193,194,195},100,"loop"),
         idle=Anim.new({192,194,192,194,192,194,192,194,192,194,192,194,224,192,194,192,194,192,224,194,224},400,"loop"),
-        sleep=Anim.new({225,226},500,"loop")
+        sleep=Anim.new({225,226},500,"loop"),
+        jump=Anim.new({194,228,227},200,"noloop")
     }
     self.dir=false
     self.anim.current=self.anim.idle
@@ -59,17 +60,21 @@ function player:update(dt)
     for i=1,len do
         local c=col[i]
         if col[i].normal.y==-1 then
-        self.vy=0
-        if input.pressed(input.BTN1) then
-            self.vy=-180
-        end
-        end
+            self.vy=0
+                if input.pressed(input.BTN1) then
+                    self.vy=-180
+                    --self.anim.current=self.anim.jump
+                    --self.anim.current:reset()
+                else
+
+                end
+            end
         if col[i].normal.x~=0 then
             self.ax=0
             self.vx=0
         end
         if col[i].normal.y==1 then
-        self.vy=0
+            self.vy=0
         end
     end
 end
