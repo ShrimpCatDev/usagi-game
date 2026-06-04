@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="12" nextobjectid="32">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="13" nextobjectid="43">
  <editorsettings>
   <export target="test.lua" format="lua"/>
  </editorsettings>
  <tileset firstgid="1" name="sprites" tilewidth="8" tileheight="8" tilecount="1024" columns="32">
   <image source="../sprites.png" width="256" height="256"/>
-  <tile id="1">
-   <properties>
-    <property name="collidable" type="bool" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="collidable" type="bool" value="true"/>
-   </properties>
-  </tile>
   <tile id="5">
    <animation>
     <frame tileid="5" duration="150"/>
@@ -22,36 +12,6 @@
     <frame tileid="7" duration="150"/>
     <frame tileid="6" duration="150"/>
    </animation>
-  </tile>
-  <tile id="8">
-   <properties>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="jumpthru" type="bool" value="true"/>
-   </properties>
-  </tile>
-  <tile id="9">
-   <properties>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="jumpthru" type="bool" value="true"/>
-   </properties>
-  </tile>
-  <tile id="40">
-   <properties>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="jumpthru" type="bool" value="true"/>
-   </properties>
-  </tile>
-  <tile id="41">
-   <properties>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="jumpthru" type="bool" value="true"/>
-   </properties>
-  </tile>
-  <tile id="42">
-   <properties>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="jumpthru" type="bool" value="true"/>
-   </properties>
   </tile>
   <tile id="96">
    <animation>
@@ -372,4 +332,20 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="trees"/>
+ <objectgroup id="12" name="collision" visible="0">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+  </properties>
+  <object id="32" x="0" y="96" width="248" height="32"/>
+  <object id="33" x="152" y="64" width="24" height="32"/>
+  <object id="34" x="112" y="56" width="40" height="40"/>
+  <object id="35" x="96" y="72" width="16" height="8"/>
+  <object id="36" x="144" y="128" width="8" height="128"/>
+  <object id="37" x="280" y="96" width="8" height="160"/>
+  <object id="38" x="152" y="240" width="128" height="16"/>
+  <object id="39" x="192" y="176" width="56" height="8"/>
+  <object id="40" x="248" y="144" width="32" height="8"/>
+  <object id="41" x="240" y="208" width="40" height="8"/>
+  <object id="42" x="160" y="144" width="56" height="8"/>
+ </objectgroup>
 </map>

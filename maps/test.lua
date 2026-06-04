@@ -9,8 +9,8 @@ return {
   height = 32,
   tilewidth = 8,
   tileheight = 8,
-  nextlayerid = 12,
-  nextobjectid = 32,
+  nextlayerid = 13,
+  nextobjectid = 43,
   properties = {},
   tilesets = {
     {
@@ -42,18 +42,6 @@ return {
       tilecount = 1024,
       tiles = {
         {
-          id = 1,
-          properties = {
-            ["collidable"] = true
-          }
-        },
-        {
-          id = 2,
-          properties = {
-            ["collidable"] = true
-          }
-        },
-        {
           id = 5,
           animation = {
             {
@@ -72,41 +60,6 @@ return {
               tileid = 6,
               duration = 150
             }
-          }
-        },
-        {
-          id = 8,
-          properties = {
-            ["collidable"] = true,
-            ["jumpthru"] = true
-          }
-        },
-        {
-          id = 9,
-          properties = {
-            ["collidable"] = true,
-            ["jumpthru"] = true
-          }
-        },
-        {
-          id = 40,
-          properties = {
-            ["collidable"] = true,
-            ["jumpthru"] = true
-          }
-        },
-        {
-          id = 41,
-          properties = {
-            ["collidable"] = true,
-            ["jumpthru"] = true
-          }
-        },
-        {
-          id = 42,
-          properties = {
-            ["collidable"] = true,
-            ["jumpthru"] = true
           }
         },
         {
@@ -687,6 +640,167 @@ return {
       parallaxy = 1,
       properties = {},
       objects = {}
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 12,
+      name = "collision",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {
+        ["collidable"] = true
+      },
+      objects = {
+        {
+          id = 32,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 96,
+          width = 248,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 33,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 152,
+          y = 64,
+          width = 24,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 34,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 112,
+          y = 56,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 35,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 96,
+          y = 72,
+          width = 16,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 36,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 144,
+          y = 128,
+          width = 8,
+          height = 128,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 37,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 280,
+          y = 96,
+          width = 8,
+          height = 160,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 38,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 152,
+          y = 240,
+          width = 128,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 39,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 192,
+          y = 176,
+          width = 56,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 40,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 248,
+          y = 144,
+          width = 32,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 41,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 208,
+          width = 40,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 42,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 160,
+          y = 144,
+          width = 56,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     }
   }
 }

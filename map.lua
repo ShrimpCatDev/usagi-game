@@ -6,6 +6,8 @@ function map:init(path)
     m.sw=usagi.GAME_W
     m.sh=usagi.GAME_H
     m.animLookup={}
+    m.collidableTiles={}
+    m.layersByName={}
     for b,tileset in ipairs(m.tilesets) do
         for c,tile in ipairs(tileset.tiles) do
             if tile.animation then
@@ -13,12 +15,17 @@ function map:init(path)
                 tile.frame=1
                 m.animLookup[tile.id+1]=tile
             end
+            if tile.properties and tile.properties.collidable then
+                m.collidableTiles[tile.id+1]=true
+            end
         end
     end
+    for k,layer in ipairs(m.layers) do
+        m.layersByName[layer.name]=layer
+    end
     m.drawlayer=function(mself,layername,dx,dy)
-        local x,y=dx or 0,dy or 0
-        for k,layer in ipairs(mself.layers) do
-            if layer.visible and layer.name==layername then
+        local layer=m.layersByName[layername]
+        if layer and layer.visible then
                 local ox=math.floor(((dx or 0)+(layer.offsetx))*layer.parallaxx)
                 local oy=math.floor(((dy or 0)+(layer.offsety))*layer.parallaxy)
                 if layer.type=="tilelayer" then
@@ -71,7 +78,6 @@ function map:init(path)
                         end
                     end
                 end
-            end
         end
     end
     m.draw=function(mself,dx,dy)
@@ -104,27 +110,23 @@ function map:init(path)
     m.bumpInit=function(mself,world)
         mself.tileCols={}
         for a,layer in pairs(mself.layers) do
+            local coli=layer.properties and layer.properties.collidable
             if layer.type=="tilelayer" then
-                local index=1
                 for y = 0,layer.height-1 do
                     for x = 0,layer.width-1 do
-                        for b,tileset in ipairs(mself.tilesets) do
-                            for c,tile in ipairs(tileset.tiles) do
-                                if mself:get(layer.name,x,y)==tile.id+1 and tile.properties and tile.properties.collidable then
-                                    table.insert(mself.tileCols,{id=tile.id,properties=tile.properties or {}})
-                                    world:add(mself.tileCols[#mself.tileCols],x*mself.tilewidth,y*mself.tileheight,mself.tilewidth,mself.tileheight)
-                                end
-                                index=index+1
-                            end
+                        local tileId=mself:get(layer.name,x,y)
+                        if m.collidableTiles[tileId] or coli then
+                            table.insert(mself.tileCols,{id=tileId,properties={collidable=true}})
+                            world:add(mself.tileCols[#mself.tileCols],x*mself.tilewidth,y*mself.tileheight,mself.tilewidth,mself.tileheight)
                         end
                     end
                 end
             elseif layer.type=="objectgroup" then
                 for j, object in ipairs(layer.objects) do
                     local x,y=object.x,object.y
-                    if object.shape=="rectangle" and object.properties["collidable"] then
+                    if object.shape=="rectangle" and (object.properties["collidable"] or coli) then
                         table.insert(mself.tileCols,{id=object.id,properties=object.properties})
-                        world:add(mself.tileCols[#mself.tileCols],x,y-object.height,object.width,object.height)
+                        world:add(mself.tileCols[#mself.tileCols],x,y,object.width,object.height)
                     end
                 end
             end
@@ -133,17 +135,13 @@ function map:init(path)
 
     m.update=function(mself,dt)
         mself.time+=dt
-        for b,tileset in ipairs(m.tilesets) do
-            for c,tile in ipairs(tileset.tiles) do
-                if tile.animation and tile.time then
-                    tile.time=tile.time+dt*1000
-                    if tile.time>=tile.animation[tile.frame].duration then
-                        tile.frame=tile.frame+1
-                        tile.time=0
-                        if tile.frame>#tile.animation then
-                            tile.frame=1
-                        end
-                    end
+        for tileId,tile in pairs(m.animLookup) do
+            tile.time=tile.time+dt*1000
+            if tile.time>=tile.animation[tile.frame].duration then
+                tile.frame=tile.frame+1
+                tile.time=0
+                if tile.frame>#tile.animation then
+                    tile.frame=1
                 end
             end
         end
