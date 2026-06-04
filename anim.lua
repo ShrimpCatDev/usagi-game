@@ -6,14 +6,16 @@
 --this lib should work with other lua engines as long as they have delta time i think
 local anim={}
 
-function anim.new(frames,duration,type) --if you want to use this do something like myAnim=anim.new({1,2,3},150,"loop")
+function anim.new(frames,duration,type,endfunc) --if you want to use this do something like myAnim=anim.new({1,2,3},150,"loop")
     local a={
         frames=frames, --all of the animation frames
         duration=duration, --how long each frame is displayed in milliseconds
         type=type, --the type of animation, can be loop, random, noloop, or pingpong
         frame=1, --the current frame
         time=0, --the animations internal time
-        dir=1 --you can ignore this, its just for the pingpong animation system
+        dir=1, --you can ignore this, its just for the pingpong animation system,
+        endfunc=endfunc,
+        ranfunc=false
     }
     if type=="loop" then
         a.update=function(self,dt)
@@ -43,6 +45,9 @@ function anim.new(frames,duration,type) --if you want to use this do something l
             if self.time>=duration and self.frame<#self.frames then --make sure the frame isnt at the end of the animation
                 self.frame=self.frame+1
                 self.time=0
+            elseif not self.ranfunc then
+                self.ranfunc=true
+                if self.endfunc then self.endfunc() end
             end
         end
     elseif type=="pingpong" then
@@ -61,7 +66,8 @@ function anim.new(frames,duration,type) --if you want to use this do something l
     end
     a.reset=function(self) --pretty much for the noloop animation type, not too fancy.
         self.time=0
-        self.frame=0
+        self.frame=1
+        self.ranfunc=false
     end
     a.get=function(self) --use this in your draw call like gfx.spr(myAnim:get(),0,0)
         return self.frames[self.frame]+1

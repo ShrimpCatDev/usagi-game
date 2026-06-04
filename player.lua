@@ -9,23 +9,50 @@ function player:init()
     self.sx=120
     self.axSpd=512
     self.fx=480
-    self.anim=Anim.new({193,194,195},100,"loop")
+    self.anim={
+        run=Anim.new({193,194,195},100,"loop"),
+        idle=Anim.new({192,194,192,194,192,194,192,194,192,194,192,194,224,192,194,192,194,192,224,194,224},400,"loop"),
+        sleep=Anim.new({225,226},500,"loop")
+    }
+    self.dir=false
+    self.anim.current=self.anim.idle
+    self.sleeping=false
+    self.sleeptimer=0
     World:add(self,self.x,self.y,8,8)
 end
 
 function player:update(dt)
     self.vy+=Gravity*dt
-    self.anim:update(dt)
+    self.anim.current:update(dt)
 
     --self.y+=self.vy*dt
     self.vx=0
     if input.held(input.RIGHT) and not input.held(input.LEFT) then
+        self.dir=false
         self.ax=util.approach(self.ax,self.sx,self.axSpd*dt)
     elseif input.held(input.LEFT) and not input.held(input.RIGHT) then
+        self.dir=true
         self.ax=util.approach(self.ax,-self.sx,self.axSpd*dt)
     else
         self.ax=util.approach(self.ax,0,self.fx*dt)
+        self.sleeptimer+=dt*1000
+        if self.sleeptimer>5000 and not self.sleeping then
+            self.sleeping=true
+            self.anim.current=self.anim.sleep
+            self.anim.current:reset()
+        end
     end
+
+    if input.pressed(input.RIGHT) or input.pressed(input.LEFT) then
+        self.anim.current=self.anim.run
+        self.anim.current:reset()
+        self.sleeping=false
+        self.sleeptimer=0
+    elseif input.released(input.RIGHT) or input.released(input.LEFT) then
+        self.anim.current=self.anim.idle
+        self.anim.current:reset()
+    end
+
     self.vx+=self.ax
     local ax,ay,col,len=World:move(self,self.x+self.vx*dt,self.y+self.vy*dt)
     self.x,self.y=ax,ay
@@ -48,7 +75,7 @@ function player:update(dt)
 end
 
 function player:draw(dx,dy)
-    gfx.spr(self.anim:get(),self.x+dx,self.y+dy)
+    gfx.spr_ex(self.anim.current:get(),self.x+dx,self.y+dy,self.dir,false,0,0,1)
 end
 
 return player
