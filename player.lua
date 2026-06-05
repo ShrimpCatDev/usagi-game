@@ -30,10 +30,13 @@ function player:update(dt)
 
     --self.y+=self.vy*dt
     self.vx=0
-    if input.held(input.RIGHT) and not input.held(input.LEFT) then
+    local held_right=input.held(input.RIGHT)
+    local held_left=input.held(input.LEFT)
+
+    if held_right and not held_left then
         self.dir=false
         self.ax=util.approach(self.ax,self.sx,self.axSpd*dt)
-    elseif input.held(input.LEFT) and not input.held(input.RIGHT) then
+    elseif held_left and not held_right then
         self.dir=true
         self.ax=util.approach(self.ax,-self.sx,self.axSpd*dt)
     else
@@ -46,12 +49,20 @@ function player:update(dt)
         end
     end
 
-    if input.pressed(input.RIGHT) or input.pressed(input.LEFT) then
+    local pressed_right=input.pressed(input.RIGHT)
+    local pressed_left=input.pressed(input.LEFT)
+    local pressed=pressed_right or pressed_left
+
+    local released_right=input.released(input.RIGHT)
+    local released_left=input.released(input.LEFT)
+    local released=released_right or released_left
+
+    if pressed_right or pressed_left and not released then
         self.anim.current=self.anim.run
         self.anim.current:reset()
         self.sleeping=false
         self.sleeptimer=0
-    elseif input.released(input.RIGHT) or input.released(input.LEFT) then
+    elseif (released_right and not held_left) or (released_left and not held_right) and not pressed then
         self.anim.current=self.anim.idle
         self.anim.current:reset()
     end
@@ -64,22 +75,22 @@ function player:update(dt)
         if col[i].normal.y==-1 then
             self.jumping=false
             self.vy=0
-                if input.pressed(input.BTN1) then
-                    if self.sleeping then
-                        self.sleeptimer=0
-                        self.sleeping=false
-                        self.anim.current=self.anim.idle
-                        self.anim.current:reset()
-                    end
-                    self.vy=-168
-                    self.jumping=true
-                    
-                    --self.anim.current=self.anim.jump
-                    --self.anim.current:reset()
-                else
-
+            if input.pressed(input.BTN1) then
+                if self.sleeping then
+                    self.sleeptimer=0
+                    self.sleeping=false
+                    self.anim.current=self.anim.idle
+                    self.anim.current:reset()
                 end
+                self.vy=-168
+                self.jumping=true
+                
+                --self.anim.current=self.anim.jump
+                --self.anim.current:reset()
+            else
+
             end
+        end
         if col[i].normal.x~=0 then
             self.ax=0
             self.vx=0
