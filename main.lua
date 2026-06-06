@@ -24,13 +24,13 @@ function _init()
   Player=require("player")
   Player:init(Test)
 
-  time=0
+  Time=0
   Gravity=400
   music.loop("song")
 end
 
 function _update(dt)  
-  time=time+dt
+  Time=Time+dt
   Test:update(dt)
   Camera.x=util.approach(Camera.x,math.floor((Player.x+4)/usagi.GAME_W)*usagi.GAME_W,Camera.spd*dt)
   Camera.y=util.approach(Camera.y,math.floor((Player.y+4)/usagi.GAME_H)*usagi.GAME_H,Camera.spd*dt)
@@ -44,4 +44,5 @@ function _draw(dt)
   Player:draw(dx,dy)
   
   Test:drawlayer("deco",dx,dy)
+  gfx.text("hi world",1,-1,1)
 end
