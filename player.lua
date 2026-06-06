@@ -3,6 +3,8 @@ local player={}
 function player:init()
     self.x=0
     self.y=0
+    self.w=8
+    self.h=8
     self.vx=0
     self.vy=0
     self.ax=0
@@ -21,6 +23,19 @@ function player:init()
     self.sleeptimer=0
     self.jumping=false
     World:add(self,self.x,self.y,8,8)
+
+    self.filter=function(item,other)
+        if other.properties then
+            if other.properties.jumpthru then
+                if item.vy>=0 and other.y>=item.y+item.h then
+                    return "slide"
+                end
+                return nil
+            end
+            return "slide"
+        end
+        return "cross"
+    end
 end
 
 function player:update(dt)
@@ -68,7 +83,7 @@ function player:update(dt)
     end
 
     self.vx+=self.ax
-    local ax,ay,col,len=World:move(self,self.x+self.vx*dt,self.y+self.vy*dtp)
+    local ax,ay,col,len=World:move(self,self.x+self.vx*dt,self.y+self.vy*dtp,self.filter)
     self.x,self.y=ax,ay
     for i=1,len do
         local c=col[i]

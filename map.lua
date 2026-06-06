@@ -16,7 +16,7 @@ function map:init(path)
                 m.animLookup[tile.id+1]=tile
             end
             if tile.properties and tile.properties.collidable then
-                m.collidableTiles[tile.id+1]=true
+                m.collidableTiles[tile.id+1]=tile.properties
             end
         end
     end
@@ -116,7 +116,7 @@ function map:init(path)
                     for x = 0,layer.width-1 do
                         local tileId=mself:get(layer.name,x,y)
                         if m.collidableTiles[tileId] or coli then
-                            table.insert(mself.tileCols,{id=tileId,properties={collidable=true}})
+                            table.insert(mself.tileCols,{x=x*mself.tilewidth,y=y*mself.tileheight,id=tileId,properties=m.collidableTiles[tileId]})
                             world:add(mself.tileCols[#mself.tileCols],x*mself.tilewidth,y*mself.tileheight,mself.tilewidth,mself.tileheight)
                         end
                     end
@@ -125,7 +125,7 @@ function map:init(path)
                 for j, object in ipairs(layer.objects) do
                     local x,y=object.x,object.y
                     if object.shape=="rectangle" and (object.properties["collidable"] or coli) then
-                        table.insert(mself.tileCols,{id=object.id,properties=object.properties})
+                        table.insert(mself.tileCols,{x=x,y=y,id=object.id,properties=object.properties})
                         world:add(mself.tileCols[#mself.tileCols],x,y,object.width,object.height)
                     end
                 end
