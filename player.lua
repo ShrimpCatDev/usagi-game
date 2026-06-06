@@ -1,8 +1,10 @@
 local player={}
 
-function player:init()
-    self.x=0
-    self.y=0
+function player:init(map)
+    local obj=map:getobject("entity","Player")
+    obj.visible=false
+    self.x=obj.x or 0
+    self.y=(obj.y-obj.height) or 0
     self.w=8
     self.h=8
     self.vx=0
@@ -22,6 +24,7 @@ function player:init()
     self.sleeping=false
     self.sleeptimer=0
     self.jumping=false
+
     World:add(self,self.x,self.y,8,8)
 
     self.filter=function(item,other)

@@ -14,14 +14,16 @@ function _init()
   Map=require("map")
   Anim=require("anim")
 
-  Player=require("player")
-  Player:init()
-
   Camera={x=0,y=0,spd=256}
 
   Test=Map:init("maps.test")
+  --Test:getlayer("entity").visible=false
   --Test:set("terrain",0,0,1)
   Test:bumpInit(World)
+
+  Player=require("player")
+  Player:init(Test)
+
   time=0
   Gravity=400
   music.loop("song")

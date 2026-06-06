@@ -97,6 +97,23 @@ function map:init(path)
         return nil
     end
 
+    m.getlayer=function(mself,layername)
+        for k, layer in ipairs(mself.layers) do
+            if layer.name == layername then
+                return layer
+            end
+        end
+        return nil
+    end
+
+    m.getobject=function(mself,layername,objectname)
+        for b,object in pairs(mself:getlayer(layername).objects) do
+            if object.name==objectname then
+                return object
+            end
+        end
+    end
+
     m.set=function(mself, layername, x, y, tile)
         for k, layer in ipairs(mself.layers) do
             if layer.name == layername and layer.type=="tilelayer" then

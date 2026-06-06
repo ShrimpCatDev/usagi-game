@@ -9,8 +9,8 @@ return {
   height = 32,
   tilewidth = 8,
   tileheight = 8,
-  nextlayerid = 13,
-  nextobjectid = 47,
+  nextlayerid = 14,
+  nextobjectid = 48,
   properties = {},
   tilesets = {
     {
@@ -705,6 +705,36 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 165, 0, 0, 0, 66, 0, 66, 11, 35, 0, 0, 35, 0, 73, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 165, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 165, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 13,
+      name = "entity",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 47,
+          name = "Player",
+          type = "",
+          shape = "rectangle",
+          x = 64,
+          y = 96,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          gid = 193,
+          visible = true,
+          properties = {}
+        }
       }
     },
     {
