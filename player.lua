@@ -37,7 +37,7 @@ function player:init(map)
             end
             return "slide"
         end
-        return "cross"
+        return "slide"
     end
 end
 

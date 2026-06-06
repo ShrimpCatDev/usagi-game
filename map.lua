@@ -54,8 +54,14 @@ function map:init(path)
                         if object.visible then
                             if object.shape=="rectangle" then
                                 if object.gid then
-                                    local gx=(object.gid-1)*usagi.SPRITE_SIZE
-                                    local gy=math.floor(((object.gid-1)/(mself.tilesets[1].imagewidth/usagi.SPRITE_SIZE))*usagi.SPRITE_SIZE)
+                                    local gid=object.gid
+                                    local animTile = m.animLookup[gid]
+                                    if animTile then
+                                        gid = animTile.animation[animTile.frame].tileid+1
+                                    end
+
+                                    local gx=(gid-1)*usagi.SPRITE_SIZE
+                                    local gy=math.floor(((gid-1)/(mself.tilesets[1].imagewidth/usagi.SPRITE_SIZE))*usagi.SPRITE_SIZE)
                                     local r=math.rad(object.rotation)
                                     gfx.sspr_ex(gx,gy,usagi.SPRITE_SIZE,usagi.SPRITE_SIZE,x+ox,(y-object.height)+oy,object.width,object.height,false,false,r,0,1)
                                 else
@@ -141,9 +147,11 @@ function map:init(path)
             elseif layer.type=="objectgroup" then
                 for j, object in ipairs(layer.objects) do
                     local x,y=object.x,object.y
-                    if object.shape=="rectangle" and (object.properties["collidable"] or coli) then
-                        table.insert(mself.tileCols,{x=x,y=y,id=object.id,properties=object.properties})
-                        world:add(mself.tileCols[#mself.tileCols],x,y,object.width,object.height)
+                    if object.shape=="rectangle" and object.properties.collidable then
+                        local yy=0
+                        if object.gid then yy=object.height end
+                        table.insert(mself.tileCols,{x=x,y=y-yy,id=object.id, properties=object.properties})
+                        world:add(mself.tileCols[#mself.tileCols],x,y-yy,object.width,object.height)
                     end
                 end
             end

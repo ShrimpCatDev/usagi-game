@@ -10,7 +10,7 @@ return {
   tilewidth = 8,
   tileheight = 8,
   nextlayerid = 14,
-  nextobjectid = 48,
+  nextobjectid = 51,
   properties = {},
   tilesets = {
     {
@@ -743,7 +743,7 @@ return {
       id = 2,
       name = "test",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="14" nextobjectid="48">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="14" nextobjectid="51">
  <editorsettings>
   <export target="test.lua" format="lua"/>
  </editorsettings>
@@ -398,7 +398,7 @@
  <objectgroup id="13" name="entity">
   <object id="47" name="Player" gid="193" x="64" y="96" width="8" height="8"/>
  </objectgroup>
- <objectgroup id="2" name="test" visible="0">
+ <objectgroup id="2" name="test">
   <object id="43" x="-8" y="0" width="8" height="128">
    <properties>
     <property name="collidable" type="bool" value="true"/>
