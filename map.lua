@@ -61,7 +61,8 @@ function map:init(path)
                                     end
 
                                     local gx=(gid-1)*usagi.SPRITE_SIZE
-                                    local gy=math.floor(((gid-1)/(mself.tilesets[1].imagewidth/usagi.SPRITE_SIZE))*usagi.SPRITE_SIZE)
+                                    local w=mself.tilesets[1].imagewidth
+                                    local gy=math.floor((gid-1)/(w/usagi.SPRITE_SIZE))*usagi.SPRITE_SIZE
                                     local r=math.rad(object.rotation)
                                     gfx.sspr_ex(gx,gy,usagi.SPRITE_SIZE,usagi.SPRITE_SIZE,x+ox,(y-object.height)+oy,object.width,object.height,false,false,r,0,1)
                                 else
@@ -111,7 +112,7 @@ function map:init(path)
         end
         return nil
     end
-
+    
     m.getobject=function(mself,layername,objectname)
         for b,object in pairs(mself:getlayer(layername).objects) do
             if object.name==objectname then
@@ -146,9 +147,10 @@ function map:init(path)
                 end
             elseif layer.type=="objectgroup" then
                 for j, object in ipairs(layer.objects) do
-                    local x,y=object.x,object.y
-                    if object.shape=="rectangle" and object.properties.collidable then
+                    local x,y=math.floor(object.x),math.floor(object.y)
+                    if object.shape=="rectangle" and (object.properties.collidable or layer.properties.collidable) then
                         local yy=0
+                        object.properties.collidable=true
                         if object.gid then yy=object.height end
                         table.insert(mself.tileCols,{x=x,y=y-yy,id=object.id, properties=object.properties})
                         world:add(mself.tileCols[#mself.tileCols],x,y-yy,object.width,object.height)

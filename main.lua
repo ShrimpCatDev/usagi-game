@@ -14,12 +14,12 @@ function _init()
   Map=require("map")
   Anim=require("anim")
 
-  Camera={x=0,y=0,spd=256}
-
   Test=Map:init("maps.test")
   --Test:getlayer("entity").visible=false
   --Test:set("terrain",0,0,1)
   Test:bumpInit(World)
+  Camera={x=0,y=0,spd=256,objs=Test:getlayer("camera bounds")}
+  Test:getlayer("camera bounds").visible=false
 
   Player=require("player")
   Player:init(Test)
@@ -29,12 +29,26 @@ function _init()
   music.loop("song")
 end
 
+local function pr(px,py,rx,ry,rw,rh)
+    return px>=rx and px<=(rx+rw) and py>=ry and py<=(ry+rh)
+end
+
 function _update(dt)  
   Time=Time+dt
   Test:update(dt)
-  Camera.x=util.approach(Camera.x,math.floor((Player.x+4)/usagi.GAME_W)*usagi.GAME_W,Camera.spd*dt)
-  Camera.y=util.approach(Camera.y,math.floor((Player.y+4)/usagi.GAME_H)*usagi.GAME_H,Camera.spd*dt)
   Player:update(dt)
+  local tx=math.floor(Player.x)+4-(usagi.GAME_W/2)
+  local ty=math.floor(Player.y)+4-(usagi.GAME_H/2)
+  
+  Camera.x=Player.x--util.approach(Camera.x,math.floor((Player.x+4)/usagi.GAME_W)*usagi.GAME_W,Camera.spd*dt)
+  Camera.y=Player.y--util.approach(Camera.y,math.floor((Player.y+4)/usagi.GAME_H)*usagi.GAME_H,Camera.spd*dt)
+  for k,object in ipairs(Camera.objs.objects) do
+    if pr(Player.x+4,Player.y+4,object.x,object.y,object.width,object.height) then
+      Camera.x=util.clamp(tx,object.x,object.x+object.width-usagi.GAME_W)
+      Camera.y=util.clamp(ty,object.y,object.y+object.height-usagi.GAME_H)
+    end
+  end
+  
 end
 
 function _draw(dt)
@@ -45,4 +59,6 @@ function _draw(dt)
   
   Test:drawlayer("deco",dx,dy)
   gfx.text("hi world",1,-1,1)
+
+  gfx.sspr(0,0,8,8,0,0)
 end

@@ -2,7 +2,7 @@ local player={}
 
 function player:init(map)
     local obj=map:getobject("entity","Player")
-    obj.visible=false
+    --obj.visible=false
     self.x=obj.x or 0
     self.y=(obj.y-obj.height) or 0
     self.w=8
@@ -19,11 +19,17 @@ function player:init(map)
         sleep=Anim.new({225,226},500,"loop"),
         jump=Anim.new({194,228,227},200,"noloop")
     }
+    self.hatOffset={
+        {0,1,0},
+        {0,1,0,1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1},
+        {1,2}
+    }
     self.dir=false
     self.anim.current=self.anim.idle
     self.sleeping=false
     self.sleeptimer=0
     self.jumping=false
+    self.hat=0
 
     World:add(self,self.x,self.y,8,8)
 
@@ -124,7 +130,15 @@ function player:update(dt)
 end
 
 function player:draw(dx,dy)
-    gfx.spr_ex(self.anim.current:get(),self.x+dx,self.y+dy,self.dir,false,0,0,1)
+    local x,y=math.floor(self.x+dx),math.floor(self.y+dy)
+    gfx.spr_ex(self.anim.current:get(),x,y,self.dir,false,0,0,1)
+
+    if self.anim.current==self.anim.sleep then
+        gfx.spr_ex(self.hat,x,y-7+((self.anim.current.frame+1)%2)+1,self.dir,false,0,0,1)
+    else
+        gfx.spr_ex(self.hat,x,y-7+((self.anim.current.frame+1)%2),self.dir,false,0,0,1)
+    end
+    
 end
 
 return player
